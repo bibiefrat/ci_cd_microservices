@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   my_web_app:
-    image: my_web_app:latest
+    image: bibiefrat/ci_cd_1:my_web_app
     ports:
       - "8088:8088"
     networks:
@@ -10,7 +10,7 @@ services:
       MONGO_URL_RUN: "mongodb://10.100.1.143:20000"
 
   mongo:
-    image: my_mongodb:latest
+    image: bibiefrat/ci_cd_1:my_mongo
     ports:
       - "27017:27017"
     networks:

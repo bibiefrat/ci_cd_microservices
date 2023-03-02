@@ -1,0 +1,35 @@
+pipeline {
+
+    options {
+        buildDiscarder(logRotator(daysToKeepStr: '1', numToKeepStr: '3'))
+        disableConcurrentBuilds()
+        timestamps()
+        timeout(time: 10, unit: 'MINUTES')
+    }
+
+    parameters {
+        string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
+    }
+
+    agent {
+        docker {
+            image 'bibiefrat/ci_cd_1:docker-slave'
+            args  '-v /var/run/docker.sock:/var/run/docker.sock -u root'
+            }
+        }
+    stages {
+        stage('Build') {
+                steps {
+                    withCredentials([usernamePassword(credentialsId: 'docker_hub_ci_cd_repo', passwordVariable: 'pass', usernameVariable: 'user')]) {
+                    sh """
+                    docker login -u $user -p $pass
+                    docker build -t bibiefrat/ci_cd_1:my_web_app .
+                    docker push bibiefrat/ci_cd_1:my_web_app
+               """
+                    }
+                }
+            }
+    }
+
+
+}
