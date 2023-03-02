@@ -24,10 +24,10 @@ pipeline {
                     sh """
                     docker login -u $user -p $pass
                     echo "BUILDING MONGO"
-                    docker build -t bibiefrat/ci_cd_1:my_mongo .
+                    docker build -t bibiefrat/ci_cd_1:my_mongo ./mongodb
                     echo "PUSHING MONGO"
                     docker push bibiefrat/ci_cd_1:my_mongo
-               """
+                    """
                     }
                 }
             }
