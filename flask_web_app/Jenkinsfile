@@ -23,6 +23,7 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'docker_hub_ci_cd_repo', passwordVariable: 'pass', usernameVariable: 'user')]) {
                     sh """
                     docker login -u $user -p $pass
+                    echo "BUILDING WEB APP"
                     docker build -t bibiefrat/ci_cd_1:my_web_app .
                     docker push bibiefrat/ci_cd_1:my_web_app
                """
