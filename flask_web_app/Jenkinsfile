@@ -25,12 +25,13 @@ pipeline {
                     docker login -u $user -p $pass
                     echo "BUILDING WEB APP"
                     docker build -t bibiefrat/ci_cd_1:my_web_app .
+                    echo "PUSHING WEB-APP"
                     docker push bibiefrat/ci_cd_1:my_web_app
                """
-                    }
-                }
-            }
-    }
+                    }//with cred
+                }//steps
+            }//stage
+    }//stages
 
 
-}
+}//pipline
