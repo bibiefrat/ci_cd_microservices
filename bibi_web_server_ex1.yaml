@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: bibi-web-server-deployment
-  namespace: bibi-webserver-app-ns
   labels:
         dep: bibi-web-server-deployment
 spec:
@@ -103,9 +102,4 @@ spec:
   resources:
     requests:
       storage: 1Gi
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: bibi-webserver-app-ns
 
