@@ -68,6 +68,7 @@ metadata:
   name: bibi-web-server-service
 spec:
   type: NodePort
+  #type: ClusterIP
   selector:
     app: web-app
   ports:
@@ -103,3 +104,23 @@ spec:
     requests:
       storage: 1Gi
 
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: bibi-ingress-network
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+    - host: bibi-web-server.info
+      http:
+        paths:
+          - path: /v2 # this is the path the ingress network will expose in order to get to internal service "<service-ip>:8088/"
+            pathType: Prefix
+            backend:
+              service:
+                name: bibi-web-server-service
+                port:
+                  number: 8088

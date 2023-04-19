@@ -3,4 +3,4 @@ kind: Namespace
 metadata:
   name: bibi-webserver-app-ns
 spec:
-  finalizers:
+  finalizers: null
