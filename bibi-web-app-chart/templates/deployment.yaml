@@ -1,0 +1,127 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bibi-web-server-deployment
+  labels:
+        dep: bibi-web-server-deployment
+spec:
+  selector:
+    matchLabels:
+      app: web-app
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: web-app
+    spec:
+      volumes:
+        - name: "mongo-data-dir"
+          persistentVolumeClaim:
+            claimName: pvc
+      containers:
+      - name: my-web-app
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        env:
+        - name: MONGO_URL_RUN
+          value: "mongodb://10.100.1.143:20000"
+        - name: MONGO
+          value: "127.0.0.1"
+        ports:
+        - containerPort: 8088
+      - name: mongo
+        image: bibiefrat/ci-cd-1:my-mongo
+        args: ["--dbpath","/data/db"]
+        livenessProbe:
+          exec:
+            command:
+              - mongosh
+              - --eval
+              - "db.adminCommand('ping')"
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 6
+        readinessProbe:
+          exec:
+            command:
+              - mongosh
+              - --eval
+              - "db.adminCommand('ping')"
+          initialDelaySeconds: 20
+          periodSeconds: 10
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 6
+        env:
+        - name: MONGO_URL_RUN
+          value: "mongodb://10.100.1.143:20000"
+        ports:
+        - containerPort: 27017
+        volumeMounts:
+          - name: "mongo-data-dir"
+            mountPath: "/data/db"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bibi-web-server-service
+spec:
+  type: NodePort
+  #type: ClusterIP
+  selector:
+    app: web-app
+  ports:
+    - name: "http"
+      port: 8088
+      targetPort: 8088
+      nodePort: 30080
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mongo-data
+  labels:
+    type: local
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: manual
+  capacity:
+    storage: 1Gi
+  hostPath:
+    path: "/data/mongo"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: bibi-ingress-network
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  ingressClassName: nginx # this can be omitted if there is a default ingress class:  kubectl get ingressclass ; kubectl describe ingressclass nginx
+  rules:
+    - host: bibi-web-server.info
+      http:
+        paths:
+          - path: / # this is the path the ingress network will expose in order to get to internal service "<service-ip>:8088/"
+            pathType: Prefix
+            backend:
+              service:
+                name: bibi-web-server-service
+                port:
+                  number: 8088
