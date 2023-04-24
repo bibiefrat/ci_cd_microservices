@@ -10,9 +10,9 @@ username= os.environ.get('MONGO_INITDB_ROOT_USERNAME', 'bibi')
 password = os.environ.get('MONGO_INITDB_ROOT_PASSWORD', '029365947')
 mongo_host = os.environ.get('MONGO', 'localhost')
 mongodb_port = int(os.environ.get('MONGO_PORT', '27017'))
-#myclient = MongoClient(host=[f"{mongo_host}:{mongodb_port}"], username=username, password=password)
+myclient = MongoClient(host=[f"{mongo_host}:{mongodb_port}"], username=username, password=password)
 #myclient = MongoClient(username=username, password=password)
-myclient = MongoClient(host=[f"{mongo_host}:{mongodb_port}"])
+#myclient = MongoClient(host=[f"{mongo_host}:{mongodb_port}"])
 #host = f"{mongo}:27017"
 #uri = "mongodb://%s:%s@%s" % (quote_plus(username), quote_plus(password), host)
 # Create a connection using MongoClient. You can import MongoClient or use pymongo.MongoClient

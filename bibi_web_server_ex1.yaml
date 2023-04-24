@@ -1,13 +1,15 @@
 apiVersion: v1
 kind: Secret
 type: Opaque
-data:
-  username: YmliaQo= #bibi
-  password: MDI5MzY1OTQ3Cg== #029365947
 metadata:
   creationTimestamp: null
   name: mongo-creds
+data:
+  username: YmliaQ==
+  password: MDI5MzY1OTQ3
+
 ---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -77,16 +79,16 @@ spec:
           successThreshold: 1
           failureThreshold: 6
         env:
-#        - name: MONGO_INITDB_ROOT_USERNAME
-#          valueFrom:
-#            secretKeyRef:
-#              name: mongo-creds
-#              key: username
-#        - name: MONGO_INITDB_ROOT_PASSWORD
-#          valueFrom:
-#            secretKeyRef:
-#              name: mongo-creds
-#              key: password
+        - name: MONGO_INITDB_ROOT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mongo-creds
+              key: username
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mongo-creds
+              key: password
 #        - name: MONGO_INITDB_DATABASE
 #          value: admin
         - name: MONGO_URL_RUN
