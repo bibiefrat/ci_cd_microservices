@@ -9,6 +9,7 @@ RUN apt install -y iputils-ping
 # Expose port #27017 from the container to the host
 # Set /usr/bin/mongod as the dockerized entry-point application
 #CMD mongod
-RUN setsid /usr/bin/mongod &
+#RUN setsid /usr/bin/mongod &
+CMD ["/usr/bin/mongod"]
 #ENTRYPOINT mongod
 

@@ -1,6 +1,17 @@
+apiVersion: v1
+kind: Secret
+type: Opaque
+data:
+  username: YmliaQo= #bibi
+  password: MDI5MzY1OTQ3Cg== #029365947
+metadata:
+  creationTimestamp: null
+  name: mongo-creds
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  creationTimestamp: null
   name: bibi-web-server-deployment
   labels:
         dep: bibi-web-server-deployment
@@ -9,8 +20,10 @@ spec:
     matchLabels:
       app: web-app
   replicas: 1
+  strategy: {}
   template:
     metadata:
+      creationTimestamp: null
       labels:
         app: web-app
     spec:
@@ -22,6 +35,16 @@ spec:
       - name: my-web-app
         image: bibiefrat/ci-cd-1:my-web-app
         env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mongo-creds
+              key: username
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mongo-creds
+              key: password
         - name: MONGO_URL_RUN
           value: "mongodb://10.100.1.143:20000"
         - name: MONGO
@@ -54,6 +77,18 @@ spec:
           successThreshold: 1
           failureThreshold: 6
         env:
+#        - name: MONGO_INITDB_ROOT_USERNAME
+#          valueFrom:
+#            secretKeyRef:
+#              name: mongo-creds
+#              key: username
+#        - name: MONGO_INITDB_ROOT_PASSWORD
+#          valueFrom:
+#            secretKeyRef:
+#              name: mongo-creds
+#              key: password
+#        - name: MONGO_INITDB_DATABASE
+#          value: admin
         - name: MONGO_URL_RUN
           value: "mongodb://10.100.1.143:20000"
         ports:
