@@ -46,7 +46,7 @@ pipeline {
         container('jnlp') {
           withKubeConfig([namespace: "demo_app namespace"]) {
               sh """
-                 /usr/local/bin/kubectl apply -f bibi_web_server_ex1.yaml -n demo_app namespace
+                 kubectl apply -f bibi_web_server_ex1.yaml -n demo_app namespace
                  sleep 30
               """
           }//withKubeConfig
@@ -58,7 +58,7 @@ pipeline {
         container('jnlp') {
           withKubeConfig([namespace: "demo_app namespace"]) {
               sh """
-                 /usr/local/bin/kubectl delete -f bibi_web_server_ex1.yaml -n demo_app namespace
+                 kubectl delete -f bibi_web_server_ex1.yaml -n demo_app namespace
               """
           }//withKubeConfig
         }//container
