@@ -44,19 +44,23 @@ pipeline {
     stage('Deploy') {
       steps {
         container('jnlp') {
-          sh """
-             kubectl apply -f bibi_web_server_ex1.yaml
-             sleep 30
-          """
+          withKubeConfig([namespace: "demo_app namespace"]) {
+              sh """
+                 kubectl apply -f bibi_web_server_ex1.yaml -n demo_app namespace
+                 sleep 30
+              """
+          }
         }//container
       }//steps
     }//stage
     stage('Remove Deployment') {
       steps {
         container('jnlp') {
-          sh """
-             kubectl delete -f bibi_web_server_ex1.yaml
-          """
+          withKubeConfig([namespace: "demo_app namespace"]) {
+              sh """
+                 kubectl delete -f bibi_web_server_ex1.yaml -n demo_app namespace
+              """
+          }
         }//container
       }//steps
     }//stage
