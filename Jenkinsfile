@@ -46,7 +46,6 @@ pipeline {
         container('inbound-agent') {
           withKubeConfig([namespace: "demo-app"]) {
               sh """
-                 kubectl create namespace demo-app
                  kubectl apply -f bibi_web_server_ex1.yaml
                  sleep 30
               """
