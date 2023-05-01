@@ -53,7 +53,7 @@ pipeline {
 //           }//withKubeConfig
           script {
                env.PIPELINE_NAMESPACE = "demo-app"
-               kubernetesDeploy configs: 'bibi_web_server_ex1.yaml'
+               kubernetesDeploy kubeconfigId: 'bibi-web-app', configs: 'bibi_web_server_ex1.yaml'
             }
         }//container
       }//steps
