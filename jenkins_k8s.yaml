@@ -21,8 +21,8 @@ spec:
       volumeMounts:
         - name: docker
           mountPath: /var/run/docker.sock # We use the k8s host docker engine
-    - name: inbound-agent
-      image: jenkins/inbound-agent
+    - name: inbound_agent
+      image: bibiefrat/ci-cd-1:inbound-agent
       command: [ "tail", "-f", "/dev/null" ]
       imagePullPolicy: Always
   volumes:
