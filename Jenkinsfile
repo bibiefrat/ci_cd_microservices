@@ -44,11 +44,11 @@ pipeline {
     stage('Deploy') {
       steps {
         container('inbound-agent') {
-        sh 'kubectl create namespace demo-app'
+        //sh 'kubectl create namespace demo-app'
           withKubeConfig([namespace: "demo-app"]) {
               sh """
 
-                 kubectl apply -f bibi_web_server_ex1.yaml
+                 kubectl apply -f bibi_web_server_ex1.yaml -n demo-app
                  sleep 30
               """
           }//withKubeConfig
@@ -60,7 +60,7 @@ pipeline {
         container('inbound-agent') {
           withKubeConfig([namespace: "demo-app"]) {
               sh """
-                 kubectl delete -f bibi_web_server_ex1.yaml
+                 kubectl delete -f bibi_web_server_ex1.yaml -n demo-app
                  kubectl delete namespace demo-app
               """
           }//withKubeConfig
