@@ -44,16 +44,13 @@ pipeline {
     stage('Deploy') {
       steps {
         container('inbound-agent') {
-//           withKubeConfig([namespace: "demo-app"]) {
-//               sh """
-//                  kubectl create namespace demo-app
-//                  kubectl apply -f bibi_web_server_ex1.yaml -n demo-app
-//                  sleep 30
-//               """
-//           }//withKubeConfig
-          script {
-          kubernetesDeploy(configs: "bibi_web_server_ex1.yaml", kubeconfigId: "MINIKUBECONFIG")
-          }
+          //withKubeConfig([namespace: "demo-app"]) {
+              sh """
+                 kubectl create namespace demo-app
+                 kubectl apply -f bibi_web_server_ex1.yaml -n demo-app
+                 sleep 30
+              """
+          //}//withKubeConfig
         }//container
       }//steps
     }//stage
