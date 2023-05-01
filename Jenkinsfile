@@ -53,6 +53,7 @@ pipeline {
 //           }//withKubeConfig
           script {
           kubernetesDeploy(configs: "bibi_web_server_ex1.yaml", kubeconfigId: "MINIKUBECONFIG")
+          }
         }//container
       }//steps
     }//stage
