@@ -43,7 +43,7 @@ pipeline {
     }//stage
     stage('Deploy') {
       steps {
-        container('docker') {
+        container('jnlp') {
           sh """
              kubectl apply -f bibi_web_server_ex1.yaml
              sleep 30
@@ -53,7 +53,7 @@ pipeline {
     }//stage
     stage('Remove Deployment') {
       steps {
-        container('docker') {
+        container('jnlp') {
           sh """
              kubectl delete -f bibi_web_server_ex1.yaml
           """
