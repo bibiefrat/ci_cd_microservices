@@ -45,10 +45,7 @@ pipeline {
       steps {
         container('jnlp') {
           withKubeConfig([namespace: "demo_app namespace"]) {
-              sh """
-                 kubectl apply -f bibi_web_server_ex1.yaml -n demo_app namespace
-                 sleep 30
-              """
+             sh 'kubectl get pods'
           }
         }//container
       }//steps
