@@ -38,8 +38,27 @@ pipeline {
           sh """
              docker ps -a
           """
-        }
-      }
-    }
+        }//container
+      }//steps
+    }//stage
+    stage('Deploy') {
+      steps {
+        container('docker') {
+          sh """
+             kubectl apply -f bibi_web_server_ex1.yaml
+             sleep 30
+          """
+        }//container
+      }//steps
+    }//stage
+    stage('Remove Deployment') {
+      steps {
+        container('docker') {
+          sh """
+             kubectl delete -f bibi_web_server_ex1.yaml
+          """
+        }//container
+      }//steps
+    }//stage
   }
 }
