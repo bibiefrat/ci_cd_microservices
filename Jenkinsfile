@@ -43,11 +43,14 @@ pipeline {
     }//stage
     stage('Deploy') {
       steps {
-        container('jnlp') {
+        //container('jnlp') {
           withKubeConfig([namespace: "demo_app namespace"]) {
-             sh 'kubectl get pods'
-          }
-        }//container
+              sh """
+                 kubectl apply -f bibi_web_server_ex1.yaml -n demo_app namespace
+                 sleep 30
+              """
+          }//withKubeConfig
+       // }//container
       }//steps
     }//stage
     stage('Remove Deployment') {
@@ -57,7 +60,7 @@ pipeline {
               sh """
                  kubectl delete -f bibi_web_server_ex1.yaml -n demo_app namespace
               """
-          }
+          }//withKubeConfig
         }//container
       }//steps
     }//stage
