@@ -44,7 +44,7 @@ pipeline {
     stage('Deploy') {
       steps {
         container('inbound-agent') {
-          withKubeConfig([namespace: "demo_app namespace"]) {
+          withKubeConfig([namespace: "demo_app"]) {
               sh """
                  kubectl apply -f bibi_web_server_ex1.yaml -n demo_app
                  sleep 30
