@@ -46,7 +46,7 @@ pipeline {
         container('inbound-agent') {
           withKubeConfig([namespace: "demo_app namespace"]) {
               sh """
-                 kubectl apply -f bibi_web_server_ex1.yaml -n demo_app namespace
+                 kubectl apply -f bibi_web_server_ex1.yaml -n demo_app
                  sleep 30
               """
           }//withKubeConfig
@@ -56,9 +56,9 @@ pipeline {
     stage('Remove Deployment') {
       steps {
         container('inbound-agent') {
-          withKubeConfig([namespace: "demo_app namespace"]) {
+          withKubeConfig([namespace: "demo_app"]) {
               sh """
-                 kubectl delete -f bibi_web_server_ex1.yaml -n demo_app namespace
+                 kubectl delete -f bibi_web_server_ex1.yaml -n demo_app
               """
           }//withKubeConfig
         }//container
