@@ -3,6 +3,7 @@ kind: Pod
 spec:
   #spec.securityContext:
   #  runAsUser: 1000
+  serviceAccountName: jenkins-admin
   containers:  # list of containers that you want present for your build, you can define a default container in the Jenkinsfile.
     - name: maven
       image: maven:latest
