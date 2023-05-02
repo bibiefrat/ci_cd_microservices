@@ -29,6 +29,7 @@ spec:
       labels:
         app: web-app
     spec:
+      serviceAccountName: jenkins-admin
       volumes:
         - name: "mongo-data-dir"
           persistentVolumeClaim:
