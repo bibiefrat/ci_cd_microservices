@@ -43,21 +43,21 @@ pipeline {
     }//stage
     stage('Deploy') {
       steps {
-        container('my-inbound-jenkins-agent') {
-          //withKubeConfig([namespace: "demo-app"]) {
+        container('inbound-agent') {
+          withKubeConfig([namespace: "demo-app"]) {
               sh """
                  kubectl get pods
                  kubectl create namespace demo-app
                  kubectl apply -f bibi_web_server_ex1.yaml -n demo-app
                  sleep 30
               """
-          //}//withKubeConfig
+          }//withKubeConfig
         }//container
       }//steps
     }//stage
     stage('Remove Deployment') {
       steps {
-        container('my-inbound-jenkins-agent') {
+        container('inbound-agent') {
           withKubeConfig([namespace: "demo-app"]) {
               sh """
                  kubectl delete -f bibi_web_server_ex1.yaml -n demo-app
