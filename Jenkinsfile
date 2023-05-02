@@ -73,8 +73,9 @@ pipeline {
           container('inbound-agent') {
               withKubeConfig([namespace: "demo-app"]) {
                   sh """
-                     kubectl delete -f bibi_web_server_ex1.yaml -n demo-app
                      kubectl delete namespace demo-app
+                     kubectl delete -f bibi_web_server_ex1.yaml -n demo-app
+
                   """
               }//withKubeConfig
           }//container
