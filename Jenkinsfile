@@ -11,8 +11,8 @@ pipeline {
       idleMinutes 5
       yamlFile 'jenkins_k8s.yaml'
       defaultContainer 'jnlp'
-}
    }
+  }
   stages {
     stage('Build') {
       steps {
