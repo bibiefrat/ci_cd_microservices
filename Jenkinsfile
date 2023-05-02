@@ -67,5 +67,18 @@ pipeline {
         }//container
       }//steps
     }//stage
+  }//stages
+  post {
+        always {
+          container('inbound-agent') {
+              withKubeConfig([namespace: "demo-app"]) {
+                  sh """
+                     kubectl delete -f bibi_web_server_ex1.yaml -n demo-app
+                     kubectl delete namespace demo-app
+                  """
+              }//withKubeConfig
+          }//container
+
+        }
   }
 }
