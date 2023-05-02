@@ -25,6 +25,10 @@ spec:
       image: bibiefrat/ci-cd-1:inbound-agent
       command: [ "tail", "-f", "/dev/null" ]
       imagePullPolicy: Always
+    - name: inbound-jenkins-agent
+      image: bibiefrat/ci-cd-1:inbound-jenkins-agent
+      command: [ "tail", "-f", "/dev/null" ]
+      imagePullPolicy: Always
   volumes:
     - name: docker
       hostPath:
