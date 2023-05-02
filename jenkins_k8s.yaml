@@ -30,11 +30,6 @@ spec:
       image: bibiefrat/ci-cd-1:inbound-agent
       command: [ "tail", "-f", "/dev/null" ]
       imagePullPolicy: Always
-      securityContext:
-        privileged: true
-        runAsGroup: 0
-        runAsUser: 0
-
   volumes:
     - name: docker
       hostPath:
