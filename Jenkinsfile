@@ -44,7 +44,7 @@ pipeline {
     stage('Deploy') {
       steps {
         container('inbound-agent') {
-          withKubeConfig([namespace: "devops-tools"]) {
+          withKubeConfig([namespace: "demo-app"]) {
               sh """
                  kubectl get pods
                  kubectl create namespace demo-app
