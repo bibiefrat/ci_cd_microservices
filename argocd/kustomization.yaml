@@ -4,3 +4,5 @@ namespace: default
 
 resources:
 - bibi_web_server_ex1.yaml
+commonAnnotations:
+  sample-go/version: v3
