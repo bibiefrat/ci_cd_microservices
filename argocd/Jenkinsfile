@@ -74,17 +74,20 @@ pipeline {
   }//stages
   post {
         always {
-          container('docker') {
+          container('inbound-agent') {
               //withKubeConfig([namespace: "demo-app"]) {
                   sh """
                   echo " --------------- removing container from docker hub---------------"
                   //docker rmi -f bibiefrat/ubuntu:1.0.${env.BUILD_ID} --force
                   argocd app  delete argocd/bibi-argocd-web-app.yaml -y
-                  del.sh 1.0.${env.BUILD_ID}
                   """
               //}//withKubeConfig
           }//container
-
+          container('docker') {
+          sh """
+            del.sh 1.0.${env.BUILD_ID}
+          """"
+          }
         }
   }
 }
