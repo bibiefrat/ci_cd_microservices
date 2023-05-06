@@ -50,18 +50,33 @@ pipeline {
                  argocd login    argocd-server.argocd:80   --insecure --username admin --password a3bAcd01
                  kubectl apply -f argocd/bibi-argocd-web-app.yaml
                  argocd app  sync argocd/bibi-argocd-web-app.yaml
-                 sleep 120
+                 sleep 60
               """
           }//withKubeConfig
         }//container
       }//steps
     }//stage
+
+    stage('Update my ubuntu docker image') {
+        steps {
+          withCredentials([usernamePassword(credentialsId: 'docker_hub_ci_cd_repo', passwordVariable: 'pass', usernameVariable: 'user')]) {
+          sh """
+            docker login -u $user -p $pass
+            docker build -t bibiefrat/ubuntu:1.0.{env.BUILD_ID} ubuntu/.
+            docker push bibiefrat/ubuntu:1.0.${env.BUILD_ID}
+          """
+          }//withCredentials
+        }//steps
+    }//stage
+
   }//stages
   post {
         always {
           container('inbound-agent') {
               //withKubeConfig([namespace: "demo-app"]) {
                   sh """
+                  echo " --------------- removing container ---------------"
+                  docker rmi -f bibiefrat/ubuntu:1.0.${env.BUILD_ID} --force
                   argocd app  delete argocd/bibi-argocd-web-app.yaml -y
                   """
               //}//withKubeConfig
