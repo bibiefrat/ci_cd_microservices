@@ -50,7 +50,7 @@ pipeline {
                  argocd login    argocd-server.argocd:80   --insecure --username admin --password a3bAcd01
                  kubectl apply -f argocd/bibi-argocd-web-app.yaml
                  argocd app  sync argocd/bibi-argocd-web-app.yaml
-                 sleep 60
+                 sleep 10
               """
           }//withKubeConfig
         }//container
@@ -78,7 +78,6 @@ pipeline {
               //withKubeConfig([namespace: "demo-app"]) {
                   sh """
                   echo " --------------- removing application from argocd---------------"
-                  //docker rmi -f bibiefrat/ubuntu:1.0.${env.BUILD_ID} --force
                   argocd app  delete argocd/bibi-argocd-web-app.yaml -y
                   """
               //}//withKubeConfig
