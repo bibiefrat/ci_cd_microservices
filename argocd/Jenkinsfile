@@ -74,7 +74,7 @@ pipeline {
   }//stages
   post {
         always {
-          container('inbound-agent') {
+          container('docker') {
               //withKubeConfig([namespace: "demo-app"]) {
                   sh """
                   echo " --------------- removing container from docker hub---------------"
