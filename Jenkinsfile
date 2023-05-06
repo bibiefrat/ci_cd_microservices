@@ -43,7 +43,7 @@ pipeline {
     }//stage
     stage('Deploy') {
       steps {
-        container('inbound-agent') {
+        container('my-inbound-jenkins-agent') {
           withKubeConfig([namespace: "demo-app"]) {
               sh """
                  kubectl get pods
@@ -58,7 +58,7 @@ pipeline {
   }//stages
   post {
         always {
-          container('inbound-agent') {
+          container('my-inbound-jenkins-agent') {
               //withKubeConfig([namespace: "demo-app"]) {
                   sh """
                     kubectl delete -f bibi_web_server_ex1.yaml -n demo-app
