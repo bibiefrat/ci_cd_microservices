@@ -47,7 +47,7 @@ pipeline {
           //withKubeConfig([namespace: "demo-app"]) {
               sh """
                  kubectl get pods
-                 kubectl apply -f bibi-argocd-web-app.yaml
+                 kubectl apply -f argocd/bibi-argocd-web-app.yaml
                  argocd login 192.168.49.1:8081 --username admin --password a3bAcd01 --insecure
                  argocd app  sync argocd/bibi-argocd-web-app.yaml
                  sleep 10
