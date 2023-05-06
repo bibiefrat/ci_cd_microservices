@@ -63,7 +63,7 @@ pipeline {
           container('inbound-agent') {
               //withKubeConfig([namespace: "demo-app"]) {
                   sh """
-                    kubectl delete -f bibi-argocd-web-app.yaml
+                    argocd app  delete argocd/bibi-argocd-web-app.yaml -y
                     //kubectl delete namespace demo-app
                   """
               //}//withKubeConfig
