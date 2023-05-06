@@ -86,7 +86,7 @@ pipeline {
           container('docker') {
           sh """
             del.sh 1.0.${env.BUILD_ID}
-          """"
+          """
           }
         }
   }
