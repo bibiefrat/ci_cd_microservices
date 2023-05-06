@@ -6,14 +6,12 @@ pipeline {
     timeout(time: 10, unit: 'MINUTES')
   }
   agent {
-  dir('..') {
     kubernetes {
       label 'bibi-web-app'
       idleMinutes 5
-      yamlFile 'jenkins_k8s.yaml'
+      yamlFile '../jenkins_k8s.yaml'
       defaultContainer 'jnlp'
      }//kubernetes
-   }//dir
   }
   stages {
     stage('Build') {
