@@ -63,7 +63,7 @@ pipeline {
               withCredentials([usernamePassword(credentialsId: 'docker_hub_ci_cd_repo', passwordVariable: 'pass', usernameVariable: 'user')]) {
               sh """
                 docker login -u $user -p $pass
-                docker build -t bibiefrat/ubuntu:1.0.{env.BUILD_ID} ubuntu/.
+                docker build -t bibiefrat/ubuntu:1.0.${env.BUILD_ID} ubuntu/.
                 docker push bibiefrat/ubuntu:1.0.${env.BUILD_ID}
               """
               }//withCredentials
