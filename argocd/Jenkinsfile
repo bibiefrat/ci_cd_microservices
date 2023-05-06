@@ -82,9 +82,9 @@ pipeline {
                   """
               //}//withKubeConfig
           }//container
-          container('docker') {
+          container('inbound-agent') {
               script {
-                sh "./del.sh 1.0.${env.BUILD_ID}"
+                sh "del.sh 1.0.${env.BUILD_ID}"
               }//script
           }//container
         }//always
