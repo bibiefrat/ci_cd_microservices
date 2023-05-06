@@ -1,0 +1,67 @@
+pipeline {
+  options {
+    buildDiscarder(logRotator(daysToKeepStr: '1', numToKeepStr: '3'))
+    disableConcurrentBuilds()
+    timestamps()
+    timeout(time: 10, unit: 'MINUTES')
+  }
+  agent {
+    kubernetes {
+      label 'bibi-web-app'
+      idleMinutes 5
+      yamlFile 'jenkins_k8s.yaml'
+      defaultContainer 'jnlp'
+   }
+  }
+  stages {
+    stage('Build') {
+      steps {
+        container('maven') {
+          sh """
+            pwd
+            """
+        }
+      }
+    }
+    stage('Test') {
+      steps {
+        container('maven') {
+          sh """
+             ls -ltr
+          """
+        }
+      }
+    }
+    stage('Push') {
+      steps {
+        container('docker') {
+          sh """
+             docker ps -a
+          """
+        }//container
+      }//steps
+    }//stage
+    stage('Deploy') {
+      steps {
+        container('inbound-agent') {
+              sh """
+                 kubectl get pods
+                 kubectl create namespace demo-app
+                 kubectl apply -f bibi_argocd-web_app.yaml
+                 argocd login 192.168.49.1:8081 --username admin --password a3bAcd01
+                 sleep 80
+              """
+        }//container
+      }//steps
+    }//stage
+  }//stages
+  post {
+        always {
+          container('inbound-agent') {
+                    kubectl delete -f bibi_argocd-web_app.yaml
+                  """
+          }//container
+
+        }
+  }
+}
