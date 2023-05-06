@@ -79,9 +79,9 @@ pipeline {
                   sh """
                   echo " --------------- removing application from argocd---------------"
                   argocd app  delete argocd/bibi-argocd-web-app.yaml -y
-                  sleep 120
-                  del.sh 1.0.${env.BUILD_ID}
+                  //sleep 120
                   """
+                  sh './del.sh 1.0.${env.BUILD_ID}'
               //}//withKubeConfig
           }//container
         }//always
