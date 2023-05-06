@@ -1,0 +1,46 @@
+pipeline {
+    agent any
+
+    stages {
+
+    stage('Cleanup Workspace') {
+            steps {
+                cleanWs()
+                sh """
+                echo "Cleaned Up Workspace For Project"
+                """
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+               sh """
+                 kubectl get pods
+                 kubectl apply -f argocd/bibi-argocd-web-app.yaml
+                 argocd login 192.168.49.1:8081 --username admin --password a3bAcd01 --insecure
+                 argocd app  sync argocd/bibi-argocd-web-app.yaml
+                 sleep 10
+              """
+            }
+        }
+
+        stage('Unittest') {
+            steps {
+                echo "testing!!!!"
+            }
+        }
+        stage('Functional test') {
+            steps {
+                echo "testing!!!!"
+            }
+        }
+    }
+
+post {
+    always {
+      sh """
+            argocd app  delete argocd/bibi-argocd-web-app.yaml -y
+      """
+    }
+}
+}
