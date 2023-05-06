@@ -9,7 +9,9 @@ pipeline {
     kubernetes {
       label 'bibi-web-app'
       idleMinutes 5
+      dir('..') {
       yamlFile 'jenkins_k8s.yaml'
+      }
       defaultContainer 'jnlp'
    }
   }
@@ -47,7 +49,6 @@ pipeline {
           //withKubeConfig([namespace: "demo-app"]) {
               sh """
                  kubectl get pods
-                 //kubectl create namespace demo-app
                  kubectl apply -f bibi-argocd-web-app.yaml
                  argocd login 192.168.49.1:8081 --username admin --password a3bAcd01 --insecure
                  argocd app  sync argocd/bibi-argocd-web-app.yaml
