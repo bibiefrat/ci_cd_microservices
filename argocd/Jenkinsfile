@@ -9,9 +9,9 @@ pipeline {
     kubernetes {
       label 'bibi-web-app'
       idleMinutes 5
-      yamlFile '../jenkins_k8s.yaml'
+      yamlFile 'jenkins_k8s.yaml'
       defaultContainer 'jnlp'
-     }//kubernetes
+   }
   }
   stages {
     stage('Build') {
@@ -43,27 +43,26 @@ pipeline {
     }//stage
     stage('Deploy') {
       steps {
-        container('my-inbound-jenkins-agent') {
-          //withKubeConfig([namespace: "demo-app"]) {
+        container('inbound-agent') {
+          withKubeConfig([namespace: "demo-app"]) {
               sh """
                  kubectl get pods
-                 kubectl apply -f argocd/bibi-argocd-web-app.yaml
-                 argocd login 192.168.49.1:8081 --username admin --password a3bAcd01 --insecure
-                 argocd app  sync argocd/bibi-argocd-web-app.yaml
-                 sleep 10
+                 kubectl create namespace demo-app
+                 kubectl apply -f bibi_web_server_ex1.yaml -n demo-app
+                 sleep 80
               """
-          //}//withKubeConfig
+          }//withKubeConfig
         }//container
       }//steps
     }//stage
   }//stages
   post {
         always {
-          container('my-inbound-jenkins-agent') {
+          container('inbound-agent') {
               //withKubeConfig([namespace: "demo-app"]) {
                   sh """
-                    argocd app  delete argocd/bibi-argocd-web-app.yaml -y
-                    //kubectl delete namespace demo-app
+                    kubectl delete -f bibi_web_server_ex1.yaml -n demo-app
+                    kubectl delete namespace demo-app
                   """
               //}//withKubeConfig
           }//container
