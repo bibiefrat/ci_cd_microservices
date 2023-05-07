@@ -13,6 +13,10 @@ pipeline {
       defaultContainer 'jnlp'
    }
   }
+   environment {
+        PREV_BUILD_NUMBER = $($BUILD_NUMBER -1)
+    }
+
   stages {
     stage('Build') {
       steps {
@@ -81,7 +85,6 @@ pipeline {
                   echo " --------------- removing application from argocd---------------"
                   argocd app  delete argocd/bibi-argocd-web-app.yaml -y
                   """
-                  PREV_BUILD_NUMBER = $($BUILD_NUMBER -1)
                   sh "bash ./del.sh 1.0.${PREV_BUILD_NUMBER}"
               //}//withKubeConfig
           }//container
