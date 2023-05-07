@@ -56,7 +56,7 @@ pipeline {
                  argocd login    argocd-server.argocd:80   --insecure --username admin --password a3bAcd01
                  kubectl apply -f argocd/bibi-argocd-web-app.yaml
                  argocd app  sync argocd/bibi-argocd-web-app.yaml
-                 sleep 2
+                 sleep 5
               """
           }//withKubeConfig
         }//container
@@ -71,7 +71,7 @@ pipeline {
                 docker login -u $user -p $pass
                 docker build -t bibiefrat/ubuntu:1.0.${env.BUILD_ID} ubuntu/.
                 docker push bibiefrat/ubuntu:1.0.${env.BUILD_ID}
-                sleep 2
+                sleep 5
               """
               }//withCredentials
             }//container
@@ -84,7 +84,7 @@ pipeline {
           container('inbound-agent') {
               //withKubeConfig([namespace: "demo-app"]) {
                   sh """
-                  echo " --------------- removing application from argocd---------------"
+                  echo " --------------- removing application from argocd and prev image from docker hub---------------"
                   argocd app  delete argocd/bibi-argocd-web-app.yaml -y
                   """
                   sh 'x=$(( ${PREV_BUILD_ID} - 1 )) ;bash ./del.sh 1.0.${x}'
