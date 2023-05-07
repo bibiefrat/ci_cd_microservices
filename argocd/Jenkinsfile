@@ -83,11 +83,12 @@ pipeline {
         always {
           container('inbound-agent') {
               //withKubeConfig([namespace: "demo-app"]) {
-                  def x = 1
-                  echo "${x}"
                   sh """
                   echo " --------------- removing application from argocd---------------"
                   argocd app  delete argocd/bibi-argocd-web-app.yaml -y
+                  """
+                  sh """
+                  x=1
                   """
                   sh "bash ./del.sh 1.0.${PREV_BUILD_ID}"
               //}//withKubeConfig
