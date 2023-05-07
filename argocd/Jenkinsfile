@@ -56,7 +56,7 @@ pipeline {
                  argocd login    argocd-server.argocd:80   --insecure --username admin --password a3bAcd01
                  kubectl apply -f argocd/bibi-argocd-web-app.yaml
                  argocd app  sync argocd/bibi-argocd-web-app.yaml
-                 sleep 5
+                 sleep 20
               """
           }//withKubeConfig
         }//container
@@ -71,7 +71,7 @@ pipeline {
                 docker login -u $user -p $pass
                 docker build -t bibiefrat/ubuntu:1.0.${env.BUILD_ID} ubuntu/.
                 docker push bibiefrat/ubuntu:1.0.${env.BUILD_ID}
-                sleep 5
+                sleep 120
               """
               }//withCredentials
             }//container
