@@ -7,7 +7,7 @@ pipeline {
   }
   environment {
         //PREV_BUILD_NUMBER = $($BUILD_NUMBER -1)
-        PREV_BUILD_ID = "${${env.BUILD_ID} - 1}"
+        PREV_BUILD_ID = "$(${env.BUILD_ID} - 1)"
     }
   agent {
     kubernetes {
