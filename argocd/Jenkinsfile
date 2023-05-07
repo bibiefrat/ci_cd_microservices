@@ -81,12 +81,13 @@ pipeline {
   }//stages
   post {
         always {
+         steps {
           container('inbound-agent') {
               //withKubeConfig([namespace: "demo-app"]) {
-                  steps {
+
                   def x = env.BUILD_ID;
                   echo "${x}"
-                  }
+
                   sh """
                   echo " --------------- removing application from argocd---------------"
                   argocd app  delete argocd/bibi-argocd-web-app.yaml -y
@@ -94,6 +95,7 @@ pipeline {
                   sh "bash ./del.sh 1.0.${PREV_BUILD_ID}"
               //}//withKubeConfig
           }//container
+          }//steps
         }//always
   }
 }
