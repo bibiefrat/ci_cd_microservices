@@ -84,7 +84,7 @@ pipeline {
                   sh '''
                     #!/bin/bash
                     echo "hello world"
-                    bash ./del.sh 1.0.${env.BUILD_ID}
+                    ./del.sh 1.0.${env.BUILD_ID}
                     '''
               //}//withKubeConfig
           }//container
