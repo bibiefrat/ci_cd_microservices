@@ -33,7 +33,7 @@ spec:
             claimName: pvc
       containers:
       - name: bibi-ubuntu
-        image: bibiefrat/ubuntu:1.0.0
+        image: docker.io/bibiefrat/ubuntu:1.0.0
       - name: my-web-app
         image: bibiefrat/ci-cd-1:my-web-app
         env:
