@@ -7,7 +7,7 @@ pipeline {
   }
   environment {
         //PREV_BUILD_NUMBER = $($BUILD_NUMBER -1)
-        PREV_BUILD_NUMBER = "${(${env.BUILD_NUMBER} - 1)}"
+        PREV_BUILD_ID = "${${env.BUILD_ID} - 1}"
     }
   agent {
     kubernetes {
@@ -87,7 +87,7 @@ pipeline {
                   echo " --------------- removing application from argocd---------------"
                   argocd app  delete argocd/bibi-argocd-web-app.yaml -y
                   """
-                  sh "bash ./del.sh 1.0.${PREV_BUILD_NUMBER}"
+                  sh "bash ./del.sh 1.0.${PREV_BUILD_ID}"
               //}//withKubeConfig
           }//container
         }//always
