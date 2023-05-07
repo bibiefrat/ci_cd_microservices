@@ -5,6 +5,10 @@ pipeline {
     timestamps()
     timeout(time: 10, unit: 'MINUTES')
   }
+  environment {
+        //PREV_BUILD_NUMBER = $($BUILD_NUMBER -1)
+        PREV_BUILD_NUMBER = 260
+    }
   agent {
     kubernetes {
       label 'bibi-web-app'
@@ -13,9 +17,7 @@ pipeline {
       defaultContainer 'jnlp'
    }
   }
-   environment {
-        PREV_BUILD_NUMBER = $($BUILD_NUMBER -1)
-    }
+
 
   stages {
     stage('Build') {
