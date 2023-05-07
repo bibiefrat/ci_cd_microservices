@@ -14,7 +14,7 @@ pipeline {
    }
   }
    environment {
-        PREV_BUILD_NUMBER = '$($BUILD_NUMBER -1)'
+        PREV_BUILD_NUMBER = currentBuild.getPreviousBuild()
     }
 
   stages {
