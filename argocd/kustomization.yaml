@@ -12,4 +12,4 @@ commonAnnotations:
   argocd-image-updater.argoproj.io/image-list: bibiefrat/ubuntu:~1.0
   argocd-image-updater.argoproj.io/write-back-method: argocd
   argocd-image-updater.argoproj.io/update-strategy: latest
-  rgocd-image-updater.argoproj.io/argocd.force-update: true
+  argocd-image-updater.argoproj.io/argocd.force-update: true
