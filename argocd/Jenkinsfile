@@ -65,7 +65,7 @@ pipeline {
                 docker login -u $user -p $pass
                 docker build -t bibiefrat/ubuntu:1.0.${env.BUILD_ID} ubuntu/.
                 docker push bibiefrat/ubuntu:1.0.${env.BUILD_ID}
-                sleep 20
+                sleep 5
               """
               }//withCredentials
             }//container
@@ -81,7 +81,7 @@ pipeline {
                   echo " --------------- removing application from argocd---------------"
                   argocd app  delete argocd/bibi-argocd-web-app.yaml -y
                   """
-                  sh 'prev=$((${env.BUILD_ID} - 1))'
+                  prev = ${env.BUILD_ID} - 1
                   sh "bash ./del.sh 1.0.${prev}"
               //}//withKubeConfig
           }//container
