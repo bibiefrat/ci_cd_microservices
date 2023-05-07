@@ -71,7 +71,7 @@ pipeline {
                 docker login -u $user -p $pass
                 docker build -t bibiefrat/ubuntu:1.0.${env.BUILD_ID} ubuntu/.
                 docker push bibiefrat/ubuntu:1.0.${env.BUILD_ID}
-                sleep 120
+                sleep 600
               """
               }//withCredentials
             }//container
