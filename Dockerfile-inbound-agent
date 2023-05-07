@@ -6,7 +6,8 @@ RUN apt-get update \
     && apt-get install -y curl \
     && curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" \
     && chmod 777 kubectl \
-    && mv kubectl /bin
+    && mv kubectl /bin \
+    && apt-get install -y jq
 
 RUN curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64 \ 
 &&  install -m 555 argocd-linux-amd64 /usr/local/bin/argocd \
