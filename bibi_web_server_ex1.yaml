@@ -20,7 +20,8 @@ spec:
     matchLabels:
       app: web-app
   replicas: 1
-  strategy: Recreate
+  strategy:
+    type: Recreate
   template:
     metadata:
       creationTimestamp: null
