@@ -9,7 +9,7 @@ metadata:
     argocd-image-updater.argoproj.io/git-branch: master
     #argocd-image-updater.argoproj.io/write-back-target: kustomization
     argocd-image-updater.argoproj.io/force-update: "true"
-    argocd-image-updater.argoproj.io/update-strategy: latest
+    argocd-image-updater.argoproj.io/update-strategy: name
 spec:
   project: default
   source:

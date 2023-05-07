@@ -87,7 +87,7 @@ pipeline {
                   echo " --------------- removing application from argocd and prev image from docker hub---------------"
                   argocd app  delete argocd/bibi-argocd-web-app.yaml -y
                   """
-                  sh 'x=$(( ${PREV_BUILD_ID} - 1 )) ;bash ./del.sh 1.0.${x}'
+                  sh 'x=$(( ${PREV_BUILD_ID} - 1 )) ;bash ./del.sh 1.0.${x} ; sleep 20'
               //}//withKubeConfig
           }//container
         }//always
