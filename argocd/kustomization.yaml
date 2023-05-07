@@ -8,3 +8,6 @@ resources:
 - bibi_web_server_ex1.yaml
 commonAnnotations:
   sample-go/version: v3
+  argocd-image-updater.argoproj.io/git-branch: master
+  argocd-image-updater.argoproj.io/image-list: bibiefrat/ubuntu:~1.0
+  argocd-image-updater.argoproj.io/write-back-method: argocd
