@@ -25,6 +25,7 @@ metadata:
   namespace: default
 spec:
   maxReplicaCount: 4
+  minReplicaCount: 1
   pollingInterval: 3  # Optional. Default: 30 seconds
   cooldownPeriod: 5 # Optional. Default: 300 seconds
   scaleTargetRef:
@@ -37,8 +38,8 @@ spec:
       #port: "3306"
       #dbName: "stats_db"
       #username: root
-      queryValue: "4.4"
-      activationQueryValue: "5.4"
+      queryValue: "5"
+      #activationQueryValue: "5.4"
       query: "SELECT CEIL(COUNT(*) / 2) FROM task_instance WHERE state='running' OR state='queued'"
     authenticationRef:
       name: keda-trigger-auth-mysql-secret
