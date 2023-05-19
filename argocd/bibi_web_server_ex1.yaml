@@ -27,6 +27,7 @@ spec:
       creationTimestamp: null
       labels:
         app: web-app
+        app.kubernetes.io/name: bibi-web-server
     spec:
       volumes:
         - name: "mongo-data-dir"
