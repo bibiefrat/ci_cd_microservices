@@ -6,7 +6,7 @@ namePrefix: kustomize-
 
 resources:
 - kyverno-cluster-policy.yaml
-  bibi_web_server_ex1.yaml
+- bibi_web_server_ex1.yaml
 
 commonAnnotations:
   sample-go/version: v3
