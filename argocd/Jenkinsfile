@@ -55,7 +55,7 @@ pipeline {
                  kubectl get pods
                  argocd login    argocd-server.argocd:80   --insecure --username admin --password a3bAcd01
                  kubectl apply -f argocd/bibi-argocd-web-app.yaml
-                 argocd app  sync argocd/bibi-argocd-web-app.yaml
+                 //argocd app  sync argocd/bibi-argocd-web-app.yaml
                  sleep 120
               """
           }//withKubeConfig
