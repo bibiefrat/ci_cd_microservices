@@ -4,6 +4,7 @@ metadata:
   name: bibi-argocd-web-app.yaml
   namespace: argocd
   annotations:
+    argocd.argoproj.io/tracking-id: my-app:apps/Deployment:default/bibi-web-server-deployment
     argocd-image-updater.argoproj.io/image-list: docker.io/bibiefrat/ubuntu:~1.0
     argocd-image-updater.argoproj.io/write-back-method: argocd
     argocd-image-updater.argoproj.io/git-branch: master
