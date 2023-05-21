@@ -38,6 +38,13 @@ spec:
         image: docker.io/bibiefrat/ubuntu:1.0.0
       - name: my-web-app
         image: bibiefrat/ci-cd-1:my-web-app
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
         env:
         - name: MONGO_INITDB_ROOT_USERNAME
           valueFrom:
