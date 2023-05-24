@@ -131,7 +131,7 @@ metadata:
     type: local
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   storageClassName: manual
   capacity:
     storage: 1Gi
@@ -145,7 +145,7 @@ metadata:
 spec:
   storageClassName: manual
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 1Gi
