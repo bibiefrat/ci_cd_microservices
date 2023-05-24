@@ -18,7 +18,7 @@ pipeline {
    }
   }
   stages {
-    stage('Deploy') {
+    stage('Deploy ') {
       steps {
         container('inbound-agent') {
           withKubeConfig([namespace: "demo-app"]) {
