@@ -20,7 +20,7 @@ pipeline {
 
 
   stages {
-    stage('Build_') {
+    stage('Build') {
       steps {
         container('maven') {
           sh """
@@ -46,7 +46,7 @@ pipeline {
                 docker login -u $user -p $pass
                 docker build -t bibiefrat/ubuntu:1.0.${env.BUILD_ID} ubuntu/.
                 docker push bibiefrat/ubuntu:1.0.${env.BUILD_ID}
-                sleep 400
+                sleep 120
               """
               }//withCredentials
             }//container
