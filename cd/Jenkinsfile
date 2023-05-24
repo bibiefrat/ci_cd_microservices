@@ -1,0 +1,70 @@
+pipeline {
+  options {
+    buildDiscarder(logRotator(daysToKeepStr: '1', numToKeepStr: '3'))
+    disableConcurrentBuilds()
+    timestamps()
+    timeout(time: 10, unit: 'MINUTES')
+  }
+  environment {
+        //PREV_BUILD_NUMBER = $($BUILD_NUMBER -1)
+        PREV_BUILD_ID = "${BUILD_ID}"
+    }
+  agent {
+    kubernetes {
+      label 'bibi-web-app'
+      idleMinutes 5
+      yamlFile 'jenkins_k8s.yaml'
+      defaultContainer 'jnlp'
+   }
+  }
+
+
+  stages {
+    stage('Build') {
+      steps {
+        container('maven') {
+          sh """
+            pwd
+            """
+        }
+      }
+    }
+    stage('Test') {
+      steps {
+        container('maven') {
+          sh """
+             ls -ltr
+          """
+        }
+      }
+    }
+    stage('Update my ubuntu docker image') {
+        steps {
+            container('docker') {
+              withCredentials([usernamePassword(credentialsId: 'docker_hub_ci_cd_repo', passwordVariable: 'pass', usernameVariable: 'user')]) {
+              sh """
+                docker login -u $user -p $pass
+                docker build -t bibiefrat/ubuntu:1.0.${env.BUILD_ID} ubuntu/.
+                docker push bibiefrat/ubuntu:1.0.${env.BUILD_ID}
+                sleep 400
+              """
+              }//withCredentials
+            }//container
+        }//steps
+    }//stage
+
+  }//stages
+  post {
+        always {
+          container('inbound-agent') {
+              //withKubeConfig([namespace: "demo-app"]) {
+                  sh """
+                  echo " --------------- removing application from argocd and prev image from docker hub---------------"
+                  argocd app  delete argocd/bibi-argocd-web-app.yaml -y
+                  """
+                  sh 'x=$(( ${PREV_BUILD_ID} - 1 )) ;bash ./del.sh 1.0.${x} ; sleep 20'
+              //}//withKubeConfig
+          }//container
+        }//always
+  }
+}
