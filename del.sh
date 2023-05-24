@@ -10,7 +10,7 @@ UNAME="bibiefrat"
 UPASS="a3bAcd01"
 ORG="bibiefrat/ubuntu/tags"
 
-# -------
+# --------
 
 set -e
 
