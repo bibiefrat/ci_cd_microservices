@@ -12,6 +12,7 @@ metadata:
     argocd-image-updater.argoproj.io/force-update: "true"
     argocd-image-updater.argoproj.io/update-strategy: name
     notifications.argoproj.io/subscribe.on-sync-succeeded.hotmail: bibi_efrat@hotmail.com
+    argocd.argoproj.io/sync-options: Replace=true, Cascade=orphan
 spec:
   project: default
   source:
