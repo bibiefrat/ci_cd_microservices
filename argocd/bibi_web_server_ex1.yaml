@@ -130,7 +130,6 @@ metadata:
   labels:
     type: local
 spec:
-  persistentVolumeReclaimPolicy: Retain
   accessModes:
     - ReadWriteOnce
   storageClassName: manual
