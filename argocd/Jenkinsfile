@@ -17,36 +17,7 @@ pipeline {
       defaultContainer 'jnlp'
    }
   }
-
-
   stages {
-    stage('Build') {
-      steps {
-        container('maven') {
-          sh """
-            pwd
-            """
-        }
-      }
-    }
-    stage('Test') {
-      steps {
-        container('maven') {
-          sh """
-             ls -ltr
-          """
-        }
-      }
-    }
-    stage('Push') {
-      steps {
-        container('docker') {
-          sh """
-             docker ps -a
-          """
-        }//container
-      }//steps
-    }//stage
     stage('Deploy') {
       steps {
         container('inbound-agent') {
@@ -56,40 +27,12 @@ pipeline {
                  argocd login    argocd-server.argocd:80   --insecure --username admin --password a3bAcd01
                  kubectl apply -f argocd/bibi-argocd-web-app.yaml
                  argocd app  sync argocd/bibi-argocd-web-app.yaml
-                 sleep 120
+                 sleep 10
               """
           }//withKubeConfig
         }//container
       }//steps
     }//stage
-
-    stage('Update my ubuntu docker image') {
-        steps {
-            container('docker') {
-              withCredentials([usernamePassword(credentialsId: 'docker_hub_ci_cd_repo', passwordVariable: 'pass', usernameVariable: 'user')]) {
-              sh """
-                docker login -u $user -p $pass
-                docker build -t bibiefrat/ubuntu:1.0.${env.BUILD_ID} ubuntu/.
-                docker push bibiefrat/ubuntu:1.0.${env.BUILD_ID}
-                sleep 400
-              """
-              }//withCredentials
-            }//container
-        }//steps
-    }//stage
-
   }//stages
-  post {
-        always {
-          container('inbound-agent') {
-              //withKubeConfig([namespace: "demo-app"]) {
-                  sh """
-                  echo " --------------- removing application from argocd and prev image from docker hub---------------"
-                  argocd app  delete argocd/bibi-argocd-web-app.yaml -y
-                  """
-                  sh 'x=$(( ${PREV_BUILD_ID} - 1 )) ;bash ./del.sh 1.0.${x} ; sleep 20'
-              //}//withKubeConfig
-          }//container
-        }//always
-  }
+
 }
