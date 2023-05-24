@@ -38,7 +38,7 @@ pipeline {
         }
       }
     }
-    stage('Update my ubuntu docker image') {
+    stage('Update my ubuntu docker image ') {
         steps {
             container('docker') {
               withCredentials([usernamePassword(credentialsId: 'docker_hub_ci_cd_repo', passwordVariable: 'pass', usernameVariable: 'user')]) {
