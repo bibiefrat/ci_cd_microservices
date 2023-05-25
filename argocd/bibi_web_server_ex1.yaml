@@ -123,6 +123,16 @@ spec:
       targetPort: 8088
       nodePort: 30080
 ---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+   name: manual
+provisioner: kubernetes.io/no-provisioner
+#volumeBindingMode: WaitForFirstConsumer
+volumeBindingMode: Immediate
+allowVolumeExpansion: true
+---
+
 apiVersion: v1
 kind: PersistentVolume
 metadata:
