@@ -5,7 +5,7 @@ namespace: default
 namePrefix: kustomize-
 
 resources:
-#- kyverno-cluster-policy.yaml
+- kyverno-cluster-policy.yaml
 - bibi_web_server_ex1.yaml
 
 commonAnnotations:
