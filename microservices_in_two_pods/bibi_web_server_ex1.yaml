@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: my-web-app
-        image: bibiefrat/ci-cd-1:my-web-app
+        image: 019273956931.dkr.ecr.eu-west-1.amazonaws.com/bibi-ecr-repo:my_web_app
         resources:
           requests:
             memory: "64Mi"

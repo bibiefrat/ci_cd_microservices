@@ -39,7 +39,7 @@ spec:
             claimName: pvc
       containers:
       - name: mongo
-        image: bibiefrat/ci-cd-1:my-mongo
+        image: 019273956931.dkr.ecr.eu-west-1.amazonaws.com/bibi-ecr-repo:my_mongo
         args: ["--dbpath","/data/db"]
         livenessProbe:
           exec:
