@@ -48,7 +48,7 @@ pipeline {
               sh """
                  kubectl get pods
                  kubectl create namespace demo-app
-                 cd microservices_in_two_pods
+                 cd microservices-in-two-pods
                  kubectl apply -f mongodb-deployment.yaml -n demo-app
                  sleep 5
                  kubectl apply -f bibi_web_server_ex1.yaml -n demo-app
@@ -64,7 +64,7 @@ pipeline {
           container('inbound-agent') {
               //withKubeConfig([namespace: "demo-app"]) {
                   sh """
-                    cd microservices_in_two_pods
+                    cd microservices-in-two-pods
                     kubectl delete -f bibi_web_server_ex1.yaml -n demo-app
                     sleep 5
                     kubectl delete -f mongodb-deployment.yaml -n demo-app
