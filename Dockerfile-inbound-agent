@@ -8,12 +8,17 @@ RUN apt-get update \
     && chmod 777 kubectl \
     && mv kubectl /bin \
     && apt-get install -y jq \
-    && apt-get install -y awscli
+    && apt-get install -y awscli \
+    && apt-get install -y docker
+
+    
     
 RUN curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64 \ 
 &&  install -m 555 argocd-linux-amd64 /usr/local/bin/argocd \
 && rm argocd-linux-amd64
-
+ENV AWS_ACCESS_KEY_ID AKIAQI7GRHZBX72Y72ME
+ENV AWS_SECRET_ACCESS_KEY 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
+ENV AWS_DEFAULT_REGION us-west-1
 
 USER jenkins
 
