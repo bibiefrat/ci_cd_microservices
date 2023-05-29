@@ -6,4 +6,4 @@ in order to install and run the following:
 4) see the log in thew web app that it managed to connect to monogodb:
 4.1) kubectl get pods
 4.2) kubectl logs <web-app pod id>
-4.3)
+4.3) x
