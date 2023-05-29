@@ -37,8 +37,8 @@ pipeline {
         container('docker') {
           sh """
              docker ps -a
-             docker tag ubuntu:latest 019273956931.dkr.ecr.eu-west-1.amazonaws.com/bibi-ecr-repo:ubuntu_1.0.${BUILD_ID}
-             docker push 019273956931.dkr.ecr.eu-west-1.amazonaws.com/bibi-ecr-repo/ubuntu:1.0.${BUILD_ID}
+             docker tag ubuntu:latest "019273956931.dkr.ecr.eu-west-1.amazonaws.com/bibi-ecr-repo:ubuntu_1.0.${BUILD_ID}"
+             docker push "019273956931.dkr.ecr.eu-west-1.amazonaws.com/bibi-ecr-repo/ubuntu:1.0.${BUILD_ID}"
           """
         }//container
       }//steps
