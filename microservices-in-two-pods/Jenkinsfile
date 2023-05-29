@@ -37,6 +37,7 @@ pipeline {
         container('docker') {
           sh """
              docker ps -a
+             aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 019273956931.dkr.ecr.eu-west-1.amazonaws.com
              docker tag ubuntu:latest 019273956931.dkr.ecr.eu-west-1.amazonaws.com/bibi-ecr-repo:ubuntu_1.0.${env.BUILD_ID}
              docker push 019273956931.dkr.ecr.eu-west-1.amazonaws.com/bibi-ecr-repo:ubuntu_1.0.${env.BUILD_ID}
           """
