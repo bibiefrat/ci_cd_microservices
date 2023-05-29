@@ -34,7 +34,7 @@ pipeline {
     }
     stage('Push') {
       steps {
-        container('docker_') {
+        container('docker') {
           sh """
              docker ps -a
           """
