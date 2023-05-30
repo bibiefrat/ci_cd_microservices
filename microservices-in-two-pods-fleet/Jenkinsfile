@@ -6,7 +6,6 @@ pipeline {
     timeout(time: 10, unit: 'MINUTES')
   }
   agent { label 'ec2-fleet' }
-  }
  stages {
     stage('Push') {
       steps {
