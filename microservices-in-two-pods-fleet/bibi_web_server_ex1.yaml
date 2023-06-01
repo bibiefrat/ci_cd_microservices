@@ -54,7 +54,7 @@ metadata:
   name: bibi-web-server-service
 spec:
   type: NodePort
-  #type: ClusterIP
+  # type: ClusterIP
   selector:
     app: web-app
   ports:
