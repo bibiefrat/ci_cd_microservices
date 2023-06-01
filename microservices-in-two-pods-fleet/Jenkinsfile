@@ -7,7 +7,7 @@ pipeline {
   }
   agent { label 'ec2-fleet' }
  stages {
-    stage('Push_') {
+    stage('Push') {
       steps {
           withCredentials([usernamePassword(credentialsId: 'aws_hub_ecr_repo', passwordVariable: 'pass', usernameVariable: 'user')]) {
               sh """
