@@ -11,6 +11,7 @@ pipeline {
       steps {
           withCredentials([usernamePassword(credentialsId: 'aws_hub_ecr_repo', passwordVariable: 'pass', usernameVariable: 'user')]) {
               sh """
+                 cat ~/.aws/config
                  docker login --username $user --password $pass 019273956931.dkr.ecr.eu-west-1.amazonaws.com
                  docker pull 019273956931.dkr.ecr.eu-west-1.amazonaws.com/bibi-ecr-repo:ubuntu_1.0.26
                  docker ps -a
