@@ -19,6 +19,7 @@ pipeline {
                  chmod 755 ./kubectl
                  sudo cp ./kubectl /usr/local/bin/kubectl
                  kubectl get svc
+                 cd microservices-in-two-pods-fleet-dynamic-ebs
                  kubectl apply -f bibi-ns.yaml
                  kubectl apply -f mongo-secret.yaml -n bibi-ns
                  kubectl apply -f mongo-svc.yaml -n bibi-ns
