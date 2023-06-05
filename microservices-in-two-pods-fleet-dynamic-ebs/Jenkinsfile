@@ -39,7 +39,6 @@ post {
                     kubectl delete -f mongodb-deployment.yaml -n bibi-ns
                     kubectl delete -f mongo-svc.yaml -n bibi-ns
                     kubectl delete -f mongo-secret.yaml -n bibi-ns
-                    kubectl delete -f mongo-secret.yaml -n bibi-ns
                     kubectl delete -f bibi-ns.yaml
                   """
         }
