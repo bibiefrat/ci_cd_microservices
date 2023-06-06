@@ -17,7 +17,7 @@ pipeline {
                  docker ps -a
                  curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.23.6/bin/linux/amd64/kubectl
                  chmod 755 ./kubectl
-                 sudo cp ./kubectl /usr/local/bin/kubectl
+                 sudo cp -rf ./kubectl /usr/local/bin/kubectl
                  kubectl get svc
                  cd microservices-in-two-pods-fleet-dynamic-ebs
                  kubectl apply -f bibi-ns.yaml
