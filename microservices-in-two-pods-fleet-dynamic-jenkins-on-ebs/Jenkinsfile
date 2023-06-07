@@ -17,7 +17,15 @@ pipeline {
 
  stages {
 
-
+     stage('Build') {
+      steps {
+            container('docker') {
+              sh """
+                 docker ps -a
+              """
+            }
+      }//steps
+    }//stage
 
     stage('Push') {
       steps {
