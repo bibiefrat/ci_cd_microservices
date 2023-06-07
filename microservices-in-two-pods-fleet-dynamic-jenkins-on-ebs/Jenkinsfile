@@ -16,7 +16,7 @@ pipeline {
  stages {
     stage('Push') {
       steps {
-          withCredentials([usernamePassword(credentialsId: 'aws_hub_ecr_repo', passwordVariable: 'pass', usernameVariable: 'user')]) {
+
               sh """
                  cat ~/.aws/config
                  aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 019273956931.dkr.ecr.eu-west-1.amazonaws.com
@@ -34,7 +34,7 @@ pipeline {
                  kubectl apply -f bibi_web_server_ex1.yaml -n bibi-ns
                  sleep 60
               """
-          }
+
       }//steps
     }//stage
   }//stages
