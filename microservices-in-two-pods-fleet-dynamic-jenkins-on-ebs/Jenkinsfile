@@ -18,14 +18,14 @@ pipeline {
  stages {
 
      stage('Push') {
-          steps {
+      steps {
             container('docker-slave') {
-                  sh """
-                     docker ps -a
-                  """
-            }//container
-          }//steps
-        }//stage
+              sh """
+                 docker ps -a
+              """
+            }
+      }//steps
+    }//stage
 
     stage('Push') {
       steps {
