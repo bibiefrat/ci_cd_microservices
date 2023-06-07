@@ -17,7 +17,7 @@ pipeline {
 
  stages {
 
-     stage('Push') {
+     stage('Build') {
       steps {
             container('docker-slave') {
               sh """
