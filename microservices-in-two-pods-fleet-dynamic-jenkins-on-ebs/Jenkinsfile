@@ -21,10 +21,10 @@ pipeline {
                  kubectl get svc
                  cd microservices-in-two-pods-fleet-dynamic-jenkins-on-ebs
                  kubectl apply -f bibi-ns.yaml
-                 kubectl apply -f mongo-secret.yaml -n bibi-devops-tools
-                 kubectl apply -f mongo-svc.yaml -n bibi-devops-tools
-                 kubectl apply -f mongodb-deployment.yaml -n bibi-devops-tools
-                 kubectl apply -f bibi_web_server_ex1.yaml -n bibi-devops-tools
+                 kubectl apply -f mongo-secret.yaml -n bibi-ns
+                 kubectl apply -f mongo-svc.yaml -n bibi-ns
+                 kubectl apply -f mongodb-deployment.yaml -n bibi-ns
+                 kubectl apply -f bibi_web_server_ex1.yaml -n bibi-ns
                  sleep 60
               """
         }
@@ -36,10 +36,10 @@ post {
             container('inbound-agent') {
                   sh """
                     cd microservices-in-two-pods-fleet-dynamic-jenkins-on-ebs
-                    kubectl delete -f bibi_web_server_ex1.yaml -n bibi-devops-tools
-                    kubectl delete -f mongodb-deployment.yaml -n bibi-devops-tools
-                    kubectl delete -f mongo-svc.yaml -n bibi-devops-tools
-                    kubectl delete -f mongo-secret.yaml -n bibi-devops-tools
+                    kubectl delete -f bibi_web_server_ex1.yaml -n bibi-ns
+                    kubectl delete -f mongodb-deployment.yaml -n bibi-ns
+                    kubectl delete -f mongo-svc.yaml -n bibi-ns
+                    kubectl delete -f mongo-secret.yaml -n bibi-ns
                     kubectl delete -f bibi-ns.yaml
                   """
             }
