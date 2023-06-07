@@ -16,7 +16,7 @@ pipeline {
  stages {
     stage('Push') {
       steps {
-
+            container('inbound-agent') {
               sh """
                  curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.23.6/bin/linux/amd64/kubectl
                  chmod 755 ./kubectl
@@ -30,7 +30,7 @@ pipeline {
                  kubectl apply -f bibi_web_server_ex1.yaml -n bibi-ns
                  sleep 60
               """
-
+        }
       }//steps
     }//stage
   }//stages
