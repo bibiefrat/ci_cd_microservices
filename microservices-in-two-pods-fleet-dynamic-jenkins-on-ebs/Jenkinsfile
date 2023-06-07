@@ -18,11 +18,8 @@ pipeline {
       steps {
             container('inbound-agent') {
               sh """
-                 curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.23.6/bin/linux/amd64/kubectl
-                 chmod 755 ./kubectl
-                 sudo cp -rf ./kubectl /usr/local/bin/kubectl
                  kubectl get svc
-                 cd microservices-in-two-pods-fleet-dynamic-ebs
+                 cd microservices-in-two-pods-fleet-dynamic-jenkins-on-ebs
                  kubectl apply -f bibi-ns.yaml
                  kubectl apply -f mongo-secret.yaml -n bibi-ns
                  kubectl apply -f mongo-svc.yaml -n bibi-ns
@@ -36,14 +33,16 @@ pipeline {
   }//stages
 post {
         always {
+            container('inbound-agent') {
                   sh """
-                    cd microservices-in-two-pods-fleet-dynamic-ebs
+                    cd microservices-in-two-pods-fleet-dynamic-jenkins-on-ebs
                     kubectl delete -f bibi_web_server_ex1.yaml -n bibi-ns
                     kubectl delete -f mongodb-deployment.yaml -n bibi-ns
                     kubectl delete -f mongo-svc.yaml -n bibi-ns
                     kubectl delete -f mongo-secret.yaml -n bibi-ns
                     kubectl delete -f bibi-ns.yaml
                   """
+            }
         }
   }
 }
