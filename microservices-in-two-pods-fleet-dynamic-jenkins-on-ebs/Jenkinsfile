@@ -14,17 +14,18 @@ pipeline {
        }
    }
 
-stage('Push') {
-      steps {
-        container('docker') {
-              sh """
-                 docker ps -a
-              """
-        }//container
-      }//steps
-    }//stage
 
  stages {
+     stage('Push') {
+          steps {
+            container('docker-slave') {
+                  sh """
+                     docker ps -a
+                  """
+            }//container
+          }//steps
+        }//stage
+
     stage('Push') {
       steps {
             container('inbound-agent') {
