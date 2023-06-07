@@ -13,6 +13,17 @@ pipeline {
           defaultContainer 'jnlp'
        }
    }
+
+stage('Push') {
+      steps {
+        container('docker') {
+              sh """
+                 docker ps -a
+              """
+        }//container
+      }//steps
+    }//stage
+
  stages {
     stage('Push') {
       steps {
