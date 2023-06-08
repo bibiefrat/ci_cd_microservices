@@ -21,6 +21,7 @@ pipeline {
                 container('docker-slave') {
                   sh """
                      which docker
+                     /usr/bin/docker ps -a
                   """
                 }
           }//steps
