@@ -10,13 +10,20 @@ pipeline {
           label 'bibi-web-app'
           idleMinutes 5
           yamlFile 'microservices-in-two-pods-fleet-dynamic-jenkins-on-ebs/jenkins_eks.yaml'
-          defaultContainer 'jnlp'
        }
    }
 
 
  stages {
-
+    stage('Build') {
+          steps {
+                container('docker-slave') {
+                  sh """
+                     which docker
+                  """
+                }
+          }//steps
+    }//stage
 
 
     stage('Push') {
