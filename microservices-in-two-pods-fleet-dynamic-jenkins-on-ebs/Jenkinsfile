@@ -19,7 +19,7 @@ pipeline {
 
      stage('Build') {
       steps {
-            container('docker') {
+            container('docker-slave') {
               sh """
                  which docker
               """
