@@ -15,17 +15,17 @@ spec:
           cpu: "100m"
         limits:
           memory: "1Gi"
-#    - name: docker
-#      image: 019273956931.dkr.ecr.eu-west-1.amazonaws.com/bibi-ecr-repo:docker
-#      command: ["tail", "-f", "/dev/null"]
-#      imagePullPolicy: Always
-#      volumeMounts:
-#        - name: docker
-#          mountPath: /var/run/docker.sock # We use the k8s host docker engine
-#    - name: my-inbound-jenkins-agent
-#      image: 019273956931.dkr.ecr.eu-west-1.amazonaws.com/bibi-ecr-repo:inbound-jenkins-agent
-#      command: [ "tail", "-f", "/dev/null" ]
-#      imagePullPolicy: Always
+    - name: docker
+      image: 019273956931.dkr.ecr.eu-west-1.amazonaws.com/bibi-ecr-repo:docker
+      command: ["tail", "-f", "/dev/null"]
+      imagePullPolicy: Always
+      volumeMounts:
+        - name: docker
+          mountPath: /var/run/docker.sock # We use the k8s host docker engine
+    - name: my-inbound-jenkins-agent
+      image: 019273956931.dkr.ecr.eu-west-1.amazonaws.com/bibi-ecr-repo:inbound-jenkins-agent
+      command: [ "tail", "-f", "/dev/null" ]
+      imagePullPolicy: Always
     - name: inbound-agent
       image: 019273956931.dkr.ecr.eu-west-1.amazonaws.com/bibi-ecr-repo:inbound-agent
       command: [ "tail", "-f", "/dev/null" ]
