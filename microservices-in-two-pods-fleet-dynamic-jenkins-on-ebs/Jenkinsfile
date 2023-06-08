@@ -10,6 +10,7 @@ pipeline {
           label 'bibi-web-app'
           idleMinutes 5
           yamlFile 'microservices-in-two-pods-fleet-dynamic-jenkins-on-ebs/jenkins_eks.yaml'
+          defaultContainer 'jnlp'
        }
    }
 
