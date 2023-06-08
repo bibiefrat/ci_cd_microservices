@@ -21,7 +21,6 @@ pipeline {
                 container('docker-slave') {
                   sh """
                      which docker
-                     systemctl start docker
                   """
                 }
           }//steps
