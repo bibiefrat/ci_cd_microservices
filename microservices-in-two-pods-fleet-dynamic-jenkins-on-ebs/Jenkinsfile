@@ -18,7 +18,7 @@ pipeline {
  stages {
     stage('Build') {
           steps {
-                container('docker-bibi') {
+                container('docker_bibi') {
                   sh """
                      which docker
                   """
