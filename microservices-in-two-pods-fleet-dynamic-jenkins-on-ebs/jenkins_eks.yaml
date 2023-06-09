@@ -16,9 +16,18 @@ spec:
         limits:
           memory: "1Gi"
     - name: docker
-      image: 019273956931.dkr.ecr.eu-west-1.amazonaws.com/bibi-ecr-repo:docker
+      image: public.ecr.aws/b4p2j5t6/dind:latest
       command: ["tail", "-f", "/dev/null"]
       imagePullPolicy: Always
+      tty: true
+      env:
+      - name: DOCKER_TLS_CERTDIR
+        value: ""
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - name: dind-cache
+          mountPath: /var/lib/docker
     - name: my-inbound-jenkins-agent-root
       image: 019273956931.dkr.ecr.eu-west-1.amazonaws.com/bibi-ecr-repo:inbound-jenkins-agent-root
       command: [ "tail", "-f", "/dev/null" ]
@@ -31,3 +40,6 @@ spec:
       image: 019273956931.dkr.ecr.eu-west-1.amazonaws.com/bibi-ecr-repo:jenkins-agent-eks
       command: [ "tail", "-f", "/dev/null" ]
       imagePullPolicy: Always
+  volumes:
+    - name: dind-cache
+      emptyDir: { }
