@@ -16,7 +16,7 @@ spec:
         limits:
           memory: "1Gi"
     - name: docker
-      image: public.ecr.aws/b4p2j5t6/dind:latest
+      image: 019273956931.dkr.ecr.eu-west-1.amazonaws.com/bibi-ecr-repo:docker
       command: ["tail", "-f", "/dev/null"]
       imagePullPolicy: Always
     - name: my-inbound-jenkins-agent-root
@@ -25,5 +25,9 @@ spec:
       imagePullPolicy: Always
     - name: inbound-agent
       image: 019273956931.dkr.ecr.eu-west-1.amazonaws.com/bibi-ecr-repo:inbound-agent
+      command: [ "tail", "-f", "/dev/null" ]
+      imagePullPolicy: Always
+    - name: jenkins-agent-eks
+      image: 019273956931.dkr.ecr.eu-west-1.amazonaws.com/bibi-ecr-repo:jenkins-agent-eks
       command: [ "tail", "-f", "/dev/null" ]
       imagePullPolicy: Always
