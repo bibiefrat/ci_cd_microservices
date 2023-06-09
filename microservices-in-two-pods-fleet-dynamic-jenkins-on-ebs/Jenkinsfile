@@ -22,14 +22,7 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'aws_hub_ecr_repo', passwordVariable: 'pass', usernameVariable: 'user')]) {
                       sh """
                          which docker
-                         echo "eyJwYXlsb2FkIjoiR3JBakVtZHlrcjd2TkVmbnFBcHFVUFMwNE84a3FRQjJ1ejIwWk11b1QrZHBvRDJ3ODZTSzdTNnJBWGpDc2o1V0RWTlhMNlp1djl4Yld2bW53eW9vbFlkTVJCVmN1aWRKZUoxVFpQREI2azYyaVJxSzdlRGZTdUJubmV1RndIVERLSlYwL2hsUlpCcFpHTFJ6VWUxM3grSTVDSFRtQzFPVFQ0M3pNR1VMemJj
-MUxvdW1WaEw3bWx6V1ZnaW40bUhublB6aVdNY0hPbTJ6aGNSaHdWQ3VaYW9BckZyMFFXRnFIdC9NSHJIZ1F4WFpvcTJSdG1CUDhEN1VFT1paTkpCRnh6dTlhRmh3eVRtMGRkeks3dThhczZGUCtnQXFsYTkvMVJOLyt6bm9qaVJUYm1WdUc1WkFhSkFoRDFKR1kybTVLc1pCUWJ3OWFIMTBjNCsxZVE5Q2hLRk5CWGtLSWZnUVhqTHU0Mm1oN2
-ttNFptaG1RZWtlS2FwR0RDdDFyZ2NEUUtDVjZ1a0hjNGhUNGo0blRUdVFYQXB3aWpIVGwwOFIyWVM2L0FhaTNHWVExbXlkUC9WbG4yZHhSN3B3Y3VKd3M1M1lsTTZpd0g2TGt4d3FqUExUMThiYkYrMHFSeGRodUoxQUVzMUhGbDJYTC90Z00zMi93MkhPQXR3RkJEZGpOU1cxNkpPSDR5UURVODIwdHQ1ZmFLSzFWT1huVG8ydk9XQk5RdVM5
-d2NoZ1Q1c085eVc5L3Bvc0s4Q1MvaXp4Sy90TktsMlQydjVrVkp6M3BmNHIra0gzTlZ5ZEpGSlJMSFJUQ3A5NHZLTmU2NlZ3M2N1RDllTDBRaThvWXlzNFlJQ0N3aHlRWXMybkFxSyswUmtybTAyRS9SWG9DZWNtOVVzOGhpRFE2dTRnUkdRUzNwMlMrRVhjWEtGSTZlRCtBYzZRaU52L0wwREliWmhuS1kzVTVFdTg5dnZacGppeHIyd3gxeD
-d1emVGSWNtUDd5aDdwNVlLKzNJZEhPU0VDOHUzaWhGd1Z0cUlDWHp6bDkrVVlJSEtkd1pUSHhNanF0ZG92SmtsbXlTeGlSTCtrYy9zK3BFUlplVlNndkxYZHFjZzNLcG5iM00zNVNrclV4ajNaKytEczRTVFZwUk1tUy9CTXRBSUFtUk5FTTdJTHBKYXhZL3BMYkVVNGhZaDBmREh1cXlJRXdVWHJsZ3I2ZE1JbWoxUDhXVkY5UlBWTXBQMkVV
-SGR0Q3dlNmllNWJPM3U4eWRqRDF3eXBDSFNxTnE2a2hyN2pEb1o1T3FqNEFRSEsreXVvUjFxUERnTXZRdFJyNDUvMnFDY1FkM01BYjBWZ0RTRG9VUmx6SldpL1FCUW9JVktFS3dWbzJDY0dpZz09IiwiZGF0YWtleSI6IkFRRUJBSGgrZFMrQmxOdTBOeG5Yd293YklMczExNXlqZCtMTkFaaEJMWnN1bk94azNBQUFBSDR3ZkFZSktvWklodm
-NOQVFjR29HOHdiUUlCQURCb0Jna3Foa2lHOXcwQkJ3RXdIZ1lKWUlaSUFXVURCQUV1TUJFRUROUG10aFZGOGl0QW92RDQxd0lCRUlBN1U1WTBlSHdhQlNFV2JBTjFZdkt0ZDJmRmowY0NQOURMQWpHRDhoajZ4UjhyZThzd2YrRUV1dVFCZmxudjBMdFZWNFlRVUZRQ1FiUVhmVFk9IiwidmVyc2lvbiI6IjIiLCJ0eXBlIjoiREFUQV9LRVki
-LCJleHBpcmF0aW9uIjoxNjg2MzQ4NDQ2fQ==" | docker login --username AWS --password-stdin 019273956931.dkr.ecr.eu-west-1.amazonaws.com
+                         echo $pass | docker login --username $user --password-stdin 019273956931.dkr.ecr.eu-west-1.amazonaws.com
                          docker pull 019273956931.dkr.ecr.eu-west-1.amazonaws.com/bibi-ecr-repo:ubuntu_1.0.26
                       """
                     }
@@ -49,7 +42,7 @@ LCJleHBpcmF0aW9uIjoxNjg2MzQ4NDQ2fQ==" | docker login --username AWS --password-s
                  kubectl apply -f mongo-svc.yaml -n bibi-ns
                  kubectl apply -f mongodb-deployment.yaml -n bibi-ns
                  kubectl apply -f bibi_web_server_ex1.yaml -n bibi-ns
-                 sleep 240
+                 sleep 20
               """
         }
       }//steps
