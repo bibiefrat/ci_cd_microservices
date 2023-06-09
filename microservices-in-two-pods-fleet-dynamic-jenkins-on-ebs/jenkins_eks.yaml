@@ -16,7 +16,7 @@ spec:
         limits:
           memory: "1Gi"
     - name: docker
-      image: public.ecr.aws/b4p2j5t6/dind:latest
+      image: public.ecr.aws/b4p2j5t6/dind:latest # this image i took from aws public repository - this is docker in docker image so i could run docker commands inside the jenkins docker agent
       command: ["dockerd"]
       imagePullPolicy: Always
       env:
