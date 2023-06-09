@@ -19,8 +19,8 @@ spec:
       image: 019273956931.dkr.ecr.eu-west-1.amazonaws.com/bibi-ecr-repo:docker
       command: ["tail", "-f", "/dev/null"]
       imagePullPolicy: Always
-    - name: my-inbound-jenkins-agent
-      image: 019273956931.dkr.ecr.eu-west-1.amazonaws.com/bibi-ecr-repo:inbound-jenkins-agent
+    - name: my-inbound-jenkins-agent-root
+      image: 019273956931.dkr.ecr.eu-west-1.amazonaws.com/bibi-ecr-repo:inbound-jenkins-agent-root
       command: [ "tail", "-f", "/dev/null" ]
       imagePullPolicy: Always
     - name: inbound-agent
