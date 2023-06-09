@@ -16,7 +16,7 @@ spec:
         limits:
           memory: "1Gi"
     - name: docker
-      image: public.ecr.aws/k1x5i9p7/docker:latest
+      image: public.ecr.aws/b4p2j5t6/dind:latest
       command: ["tail", "-f", "/dev/null"]
       imagePullPolicy: Always
     - name: my-inbound-jenkins-agent-root
