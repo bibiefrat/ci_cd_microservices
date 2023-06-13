@@ -43,7 +43,7 @@ pipeline {
                  kubectl apply -f mongo-svc.yaml -n bibi-ns
                  kubectl apply -f mongodb-deployment.yaml -n bibi-ns
                  kubectl apply -f bibi_web_server_ex1.yaml -n bibi-ns
-                 sleep 240
+                 sleep 10
               """
         }
       }//steps
