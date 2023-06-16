@@ -10,7 +10,7 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - docker build -t  019273956931.dkr.ecr.eu-west-1.amazonaws.com/bibi-ecr-repo:ubuntu_1.0.26 -f microservices-in-two-pods-fleet-dynamic-ebs-aws-code-build/Dockerfile
+      - docker build . -t  019273956931.dkr.ecr.eu-west-1.amazonaws.com/bibi-ecr-repo:ubuntu_1.0.26 -f microservices-in-two-pods-fleet-dynamic-ebs-aws-code-build/Dockerfile
   post_build:
     commands:
       - echo Build completed on `date`
