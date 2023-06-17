@@ -3,6 +3,11 @@ version: 0.2
 phases:
   pre_build:
     commands:
+      - # Check AWS CLI Version
+      - echo "Checking AWS CLI Version..."
+      - aws --version
+      - # Update Kube config Home Directory
+      - export KUBECONFIG=$HOME/.kube/config
       - docker version
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 019273956931.dkr.ecr.eu-west-1.amazonaws.com
@@ -16,3 +21,16 @@ phases:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker push 019273956931.dkr.ecr.eu-west-1.amazonaws.com/bibi-ecr-repo:ubuntu_1.0.26
+      - # Updating kubectl with your EKS Cluster
+      - echo "Update Kube Config configuration"
+      - aws eks update-kubeconfig --name $EKS_CLUSTERNAME
+      # Show time, applying manifests changes using kubectl
+      - echo "Apply changes to kube manifests"
+      - kubectl get svc
+      - cd microservices-in-two-pods-fleet-dynamic-ebs-aws-code-build
+      - kubectl apply -f bibi-ns.yaml
+      - kubectl apply -f mongo-secret.yaml -n bibi-ns
+      - kubectl apply -f mongo-svc.yaml -n bibi-ns
+      - kubectl apply -f mongodb-deployment.yaml -n bibi-ns
+      - kubectl apply -f bibi_web_server_ex1.yaml -n bibi-ns
+      - sleep 10
