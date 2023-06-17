@@ -18,7 +18,7 @@ phases:
       - docker build . -t  019273956931.dkr.ecr.eu-west-1.amazonaws.com/bibi-ecr-repo:ubuntu_1.0.26 -f microservices-in-two-pods-fleet-dynamic-ebs-aws-code-build/Dockerfile
   post_build:
     commands:
-      - echo Build completed on `date`
+      - echo Build completed on - `date`
       - echo Pushing the Docker image...
       - docker push 019273956931.dkr.ecr.eu-west-1.amazonaws.com/bibi-ecr-repo:ubuntu_1.0.26
       - # Updating kubectl with your EKS Cluster
