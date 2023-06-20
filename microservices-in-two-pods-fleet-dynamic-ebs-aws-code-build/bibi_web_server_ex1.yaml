@@ -18,6 +18,7 @@ spec:
       labels:
         app: web-app
     spec:
+      serviceAccountName: secret-manager-service-account
       volumes:
         - name: api-secret
           csi:

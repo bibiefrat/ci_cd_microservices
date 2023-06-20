@@ -13,6 +13,7 @@ spec:
       labels:
         app: mongo
     spec:
+      serviceAccountName: secret-manager-service-account
       volumes:
         - name: "mongo-data-dir"
           persistentVolumeClaim:
