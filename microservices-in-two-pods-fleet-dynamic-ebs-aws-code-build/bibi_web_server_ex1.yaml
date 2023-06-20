@@ -18,6 +18,13 @@ spec:
       labels:
         app: web-app
     spec:
+      volumes:
+        - name: api-secret
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "secrets-provider"
       containers:
       - name: my-web-app
         image: 019273956931.dkr.ecr.eu-west-1.amazonaws.com/bibi-ecr-repo:my_web_app
@@ -47,6 +54,10 @@ spec:
           value: "27017"
         ports:
         - containerPort: 8088
+        volumeMounts:
+          - name: api-secret
+            mountPath: "/mnt/secrets-store"
+            readOnly: true
 ---
 apiVersion: v1
 kind: Service
