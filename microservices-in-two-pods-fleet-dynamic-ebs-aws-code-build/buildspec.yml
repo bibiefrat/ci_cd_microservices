@@ -35,7 +35,7 @@ phases:
       - kubectl apply -f mongo-svc.yaml -n bibi-ns
       - kubectl apply -f mongodb-deployment.yaml -n bibi-ns
       - kubectl apply -f bibi_web_server_ex1.yaml -n bibi-ns
-      - sleep 12
+      - sleep 10
       - kubectl delete -f bibi_web_server_ex1.yaml -n bibi-ns
       - kubectl delete -f mongodb-deployment.yaml -n bibi-ns
       - kubectl delete -f mongo-svc.yaml -n bibi-ns
