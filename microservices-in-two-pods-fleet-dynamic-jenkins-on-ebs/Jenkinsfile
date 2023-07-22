@@ -23,7 +23,7 @@ pipeline {
                       sh """
                          which docker
                          echo "$pass"
-                         echo $pass | docker login --username $user --password-stdin 019273956931.dkr.ecr.eu-west-1.amazonaws.com
+                         //echo "$pass" | docker login --username $user --password-stdin 019273956931.dkr.ecr.eu-west-1.amazonaws.com
                          //aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 019273956931.dkr.ecr.eu-west-1.amazonaws.com
                          docker pull 019273956931.dkr.ecr.eu-west-1.amazonaws.com/bibi-ecr-repo:ubuntu_1.0.26
                       """
