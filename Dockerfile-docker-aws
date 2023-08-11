@@ -1,0 +1,12 @@
+FROM docker
+
+USER root
+
+RUN apt-get update \
+    && apt-get install -y awscli
+
+ENV AWS_ACCESS_KEY_ID AKIAQI7GRHZBX72Y72ME
+ENV AWS_SECRET_ACCESS_KEY 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
+ENV AWS_DEFAULT_REGION us-west-1
+
+USER docker
